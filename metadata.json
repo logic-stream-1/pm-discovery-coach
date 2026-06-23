@@ -1,0 +1,8 @@
+{
+  "name": "Remix: PM Scholar",
+  "description": "An interactive microlearning app teaching continuous product discovery, Jobs-to-be-Done, assumption mapping, and prioritising frameworks to aspiring and early-career PMs.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}

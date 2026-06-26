@@ -4,6 +4,13 @@ import { Lesson, Unit } from "../types";
 import JTBDWorkbench from "./workbenches/JTBDWorkbench";
 import AssumptionMappingWorkbench from "./workbenches/AssumptionMappingWorkbench";
 import PrioritisationWorkbench from "./workbenches/PrioritisationWorkbench";
+import { 
+  PromptComparatorWidget, 
+  TokenPredictorWidget, 
+  DecisionMatrixWidget, 
+  AgentSimulatorLoop, 
+  EvaluationBriefWidget 
+} from "./InteractiveWidgets";
 import { trackEvent } from "../lib/analytics";
 
 interface LessonOverlayProps {
@@ -29,7 +36,7 @@ export default function LessonOverlay({ lesson, unit, onClose, onComplete }: Les
 
   const totalSlides = lesson.slides.length;
   // If we have a workbench lesson, we add 1 slide for the workbench, and 1 slide for the quiz!
-  const hasWorkbench = lesson.id === "l2-3" || lesson.id === "l3-3" || lesson.id === "l4-3";
+  const hasWorkbench = lesson.id === "l2-3" || lesson.id === "l3-3" || lesson.id === "l4-3" || !!(lesson as any).widgetType;
   
   const slideCount = totalSlides + (hasWorkbench ? 1 : 0) + 1; // Content Slides + Workbench (if any) + Quiz
 
@@ -170,6 +177,23 @@ export default function LessonOverlay({ lesson, unit, onClose, onComplete }: Les
               )}
               {lesson.id === "l4-3" && (
                 <PrioritisationWorkbench onComplete={() => setWorkbenchCompleted(true)} />
+              )}
+
+              {/* DYNAMIC CUSTOM AI GENERATED WIDGETS */}
+              {(lesson as any).widgetType === "prompt-comparator" && (
+                <PromptComparatorWidget onComplete={() => setWorkbenchCompleted(true)} />
+              )}
+              {(lesson as any).widgetType === "token-predictor" && (
+                <TokenPredictorWidget onComplete={() => setWorkbenchCompleted(true)} />
+              )}
+              {(lesson as any).widgetType === "decision-matrix" && (
+                <DecisionMatrixWidget onComplete={() => setWorkbenchCompleted(true)} />
+              )}
+              {(lesson as any).widgetType === "agent-simulator" && (
+                <AgentSimulatorLoop onComplete={() => setWorkbenchCompleted(true)} />
+              )}
+              {(lesson as any).widgetType === "evaluator-brief" && (
+                <EvaluationBriefWidget onComplete={() => setWorkbenchCompleted(true)} />
               )}
             </div>
           )}

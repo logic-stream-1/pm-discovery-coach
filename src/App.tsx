@@ -58,6 +58,7 @@ export default function App() {
     return (saved === "web" ? "web" : "app");
   });
   const [currentTab, setCurrentTab] = useState<"discovery" | "my-path" | "community" | "profile">("discovery");
+  const [myPathSection, setMyPathSection] = useState<"journey" | "habits" | "sandboxes" | "ai-onboarding">("journey");
   const [progress, setProgress] = useState<UserProgress>(DEFAULT_PROGRESS);
   const [posts, setPosts] = useState<ForumPost[]>([]);
   const [activeLesson, setActiveLesson] = useState<Lesson | null>(null);
@@ -335,17 +336,17 @@ export default function App() {
   };
 
   // Community Feed helpers
-  const handleAddPost = (content: string, category: string) => {
+  const handleAddPost = (content: string, category: string, unitShared?: any) => {
     const newPost: ForumPost = {
       id: "usr-post-" + Date.now(),
       authorName: "You (Active Learner)",
       authorRole: "Continuous Discovery Practitioner Apprentice",
       authorAvatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=150&auto=format&fit=crop",
-      content: `[#${category}] ${content}`,
+      content: content,
       likesCount: 0,
       timestamp: "Just now",
       comments: [],
-      unitShared: null
+      unitShared: unitShared || null
     };
 
     savePostsToStorage([newPost, ...posts]);
@@ -494,11 +495,36 @@ export default function App() {
               onSelectLesson={handleSelectLesson}
               onExploreCommunity={() => setCurrentTab("community")}
               onContinueLearning={handleContinueLearning}
+              onNavigateToMyPathSection={(section) => {
+                setCurrentTab("my-path");
+                setMyPathSection(section);
+              }}
             />
           )}
 
           {currentTab === "my-path" && (
-            <MyPathTab progress={progress} />
+            <MyPathTab
+              progress={progress}
+              onUpdateLocalProgress={saveProgressToStorage}
+              onSelectCustomLesson={handleSelectLesson}
+              onSelectLesson={handleSelectLesson}
+              activeSection={myPathSection}
+              onActiveSectionChange={setMyPathSection}
+              onShareToFeed={(content, unitShared) => {
+                const newPost: ForumPost = {
+                  id: "usr-post-" + Date.now(),
+                  authorName: "You (Active Learner)",
+                  authorRole: "Continuous Discovery Practitioner Apprentice",
+                  authorAvatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=150&auto=format&fit=crop",
+                  content,
+                  likesCount: 0,
+                  timestamp: "Just now",
+                  comments: [],
+                  unitShared
+                };
+                savePostsToStorage([newPost, ...posts]);
+              }}
+            />
           )}
 
           {currentTab === "community" && (
@@ -507,6 +533,11 @@ export default function App() {
               onAddPost={handleAddPost}
               onLikePost={handleLikePost}
               onAddComment={handleAddComment}
+              progress={progress}
+              onNavigateToMyPathSection={(section) => {
+                setCurrentTab("my-path");
+                setMyPathSection(section);
+              }}
             />
           )}
 

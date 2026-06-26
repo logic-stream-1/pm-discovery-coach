@@ -60,5 +60,44 @@ export const INITIAL_POSTS: ForumPost[] = [
       unitTitle: "Jobs-to-be-Done",
       score: "100%"
     }
+  },
+  {
+    id: "post-4",
+    authorName: "Karan Johar",
+    authorRole: "Technical Product Manager @ ScaleOps",
+    authorAvatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?q=80&w=150&auto=format&fit=crop",
+    content: "Debriefing my CYOA simulation: Faced some major resistance from stakeholders during our Unit 3 pitch, but managed to keep alignment high by using customer discovery recordings. Wound up finishing with 85% stakeholder morale and 90% confidence score! The simulation is so realistic to real-world alignment problems. 🎭🔥",
+    likesCount: 19,
+    hasLiked: false,
+    timestamp: "10 hours ago",
+    comments: [
+      {
+        id: "c-4",
+        authorName: "Ananya Mehta",
+        content: "Awesome job, Karan! Customer recordings are indeed the ultimate weapon against stakeholder skepticism.",
+        timestamp: "8 hours ago"
+      }
+    ],
+    unitShared: {
+      unitNumber: -2,
+      unitTitle: "Lead Architect Roleplay Scenario (AI Adventure)",
+      score: "85% Morale"
+    }
+  },
+  {
+    id: "post-5",
+    authorName: "Sophia Martinez",
+    authorRole: "Senior PM @ CloudSphere",
+    authorAvatar: "https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=150&auto=format&fit=crop",
+    content: "Tested strict vs. relaxed guidelines in the Prompt Sandbox side-by-side using real interview transcripts. The model with a designated focus on JTBD and pre-defined opportunity categories extracted cleaner data, avoiding speculative features entirely. Strongly recommend adding direct context instructions in your playbooks! 🧪📊",
+    likesCount: 15,
+    hasLiked: false,
+    timestamp: "1 day ago",
+    comments: [],
+    unitShared: {
+      unitNumber: -3,
+      unitTitle: "Analyzed 'Strict JTBD' vs 'Relaxed Summaries' (Sandbox Duel)",
+      score: "Prac"
+    }
   }
 ];

@@ -12,7 +12,7 @@ const PORT = 3000;
 app.use(express.json());
 
 // Initialize Gemini Client with standard headers
-const apiKey = process.env.GEMINI_API_KEY;
+const apiKey = process.env.GEMINI_API_KEY_PS || process.env.GEMINI_API_KEY;
 let ai: GoogleGenAI | null = null;
 
 if (apiKey) {
